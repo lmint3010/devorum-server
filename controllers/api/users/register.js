@@ -6,7 +6,8 @@ const validateRegister = require('../../../validation/register')
 module.exports = async (req, res) => {
   // Validate user request data
   const { errors, isValid } = validateRegister(req.body)
-  if (!isValid) res.status(400).json(errors)
+  if (!isValid)
+    return res.status(400).json(errors)
 
   // Initial constants
   const { email, name, password } = req.body
