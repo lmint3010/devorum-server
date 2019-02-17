@@ -23,14 +23,15 @@ module.exports = async (req, res) => {
   // @Login   Fail | Incorrect password
   // @Handle  Response message
   const passwordChecker = await bcrypt.compare(password, user.password)
-  !passwordChecker && res.status(400).json({ password: 'Password is incorrect!' })
+  if (!passwordChecker)
+    return res.status(400).json({ password: 'Password is incorrect!' })
 
   // @Login   Success
   // @Handle  Response JWT to final user
   const { _id, name, avatar } = user
   const payload = { _id, name, avatar }
 
-  // Get new token & response
+  // Get new token & response bearer token
   const token = await jwt.sign(payload, secretKey, { expiresIn: 3600 })
   return res.json({
     success: true,
