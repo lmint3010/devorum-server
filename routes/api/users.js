@@ -26,7 +26,7 @@ router.post('/login', controller.login)
 // @route     GET /api/users/current
 // @desc      Get the user information in current time
 // @access    Private
-router.get('/current', passport.authenticate('jwt', { session: false }) ,controller.current)
+router.get('/current', passport.authenticate('jwt', { session: false }), controller.current)
 
 module.exports = router
 

@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 // Database Config
 const { mongoURI, mongooseOption } = require('./config/keys')
 
-// Routes resource
+// Route modules
 const users = require('./routes/api/users')
 const profile = require('./routes/api/profile')
 const posts = require('./routes/api/posts')
