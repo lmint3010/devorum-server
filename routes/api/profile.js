@@ -8,7 +8,10 @@ const controller = {
   findByHandle: require('../../controllers/api/profile/findByHandle'),
   findByUserId: require('../../controllers/api/profile/findByUserId'),
   findAllProfile: require('../../controllers/api/profile/findAll'),
-  addExperience: require('../../controllers/api/profile/addExperience')
+  addExperience: require('../../controllers/api/profile/addExperience'),
+  addEducation: require('../../controllers/api/profile/addEducation'),
+  deleteExperience: require('../../controllers/api/profile/deleteExperience'),
+  deleteEducation: require('../../controllers/api/profile/deleteEducation')
 }
 
 // @route   GET /api/profile
@@ -31,14 +34,34 @@ router.get('/user/:user_id', controller.findByUserId)
 // @access  Public
 router.get('/all', controller.findAllProfile)
 
-// @route   GET /api/profile/exp
-// @desc    Add/Update user experience
+// @route   GET /api/profile/experience
+// @desc    Add experience to user profile
 // @access  Private
 router.post('/experience', passport.authenticate('jwt', { session: false }), controller.addExperience)
+
+// @route   DELETE /api/profile/experience/:experience_id
+// @desc    Delete user experience
+// @access  Private
+router.delete('/experience/:experience_id', passport.authenticate('jwt', { session: false }), controller.deleteExperience)
+
+// @route   GET /api/profile/education
+// @desc    Add education to user profile
+// @access  Private
+router.post('/education', passport.authenticate('jwt', { session: false }), controller.addEducation)
+
+// @route   DELETE /api/profile/education/:education_id
+// @desc    Delete user education
+// @access  Private
+router.delete('/education/:education_id', passport.authenticate('jwt', { session: false }), controller.deleteEducation)
 
 // @route   POST /api/profile
 // @desc    Add profile for user
 // @access  Private
 router.post('/', passport.authenticate('jwt', { session: false }), controller.addProfile)
+
+// @route   DELETE /api/profile
+// @desc    Delete profile & user account
+// @access  Private
+router.delete('/', passport.authenticate('jwt', { session: false }), controller.deleteProfile)
 
 module.exports = router
