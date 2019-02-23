@@ -11,7 +11,8 @@ const controller = {
   addExperience: require('../../controllers/api/profile/addExperience'),
   addEducation: require('../../controllers/api/profile/addEducation'),
   deleteExperience: require('../../controllers/api/profile/deleteExperience'),
-  deleteEducation: require('../../controllers/api/profile/deleteEducation')
+  deleteEducation: require('../../controllers/api/profile/deleteEducation'),
+  deleteProfile: require('../../controllers/api/profile/deleteProfile')
 }
 
 // @route   GET /api/profile
