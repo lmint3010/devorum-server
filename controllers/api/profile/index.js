@@ -7,6 +7,9 @@ module.exports = async (req, res) => {
 
   // Find user matched Id
   const userProfile = await profileModel.findOne({ user: id })
+  .populate('user', ['name', 'avatar'])
+  // Reference to user model
+
   if(!userProfile)
     return res.status(404).json({ noProfile: 'There is no profile for this user' })
 

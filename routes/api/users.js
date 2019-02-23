@@ -8,11 +8,6 @@ const controller = {
   current: require('../../controllers/api/users/current')
 }
 
-// @route     GET /api/users/test
-// @desc      Test users API
-// @access    Public
-router.get('/test', (_, res) => res.json({ test: 'OK' }))
-
 // @route     POST /api/users/register
 // @desc      Register new user
 // @access    Public

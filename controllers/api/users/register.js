@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   if (!isValid)
     return res.status(400).json(errors)
 
-  // Initial constants
+  // Constants
   const { email, name, password } = req.body
 
   // Email existed?

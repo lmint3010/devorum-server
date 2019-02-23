@@ -28,7 +28,7 @@ const profileSchema = new Schema({
     company: { type: String, required: true },
     location: String,
     from: { type: Date, required: true },
-    to: { type: Date },
+    to: { type: Date, default: Date.now },
     current: { type: Boolean, default: false },
     description: String
   }],

@@ -1,15 +1,17 @@
 const { isEmail, isEmpty } = require('validator')
+const stringConverter = require('./string-converter')
 
 module.exports = (data) => {
   let errors = {}
-  const { email, password } = data
+  let { email, password } = data
 
-  // Let validate from here
+  email = stringConverter(email)
+  password = stringConverter(password)
 
-  isEmpty(`${email}`)
+  isEmpty(email)
     && (errors.email = 'Please enter your email')
 
-  isEmpty(`${password}`)
+  isEmpty(password)
     && (errors.password = 'Please enter your password')
 
   !isEmail(email)

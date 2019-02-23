@@ -10,7 +10,7 @@ const options = {
 
 module.exports = passport => {
   passport.use(new Strategy(options, async (payload, done) => {
-    // Initial constants
+    // Constants
     const { _id } = payload
 
     // Find the user matched with ID

@@ -1,53 +1,62 @@
 const { isEmpty, isLength, isURL } = require('validator')
+const stringConverter = require('./string-converter')
 
 module.exports = data => {
   let errors = {}
-  const {
+  let {
     handle, status, skills, website,
     youtube, facebook, twitter, instagram
   } = data
+
+  handle = stringConverter(handle)
+  status = stringConverter(status)
+  skills = stringConverter(skills)
+  website = stringConverter(website)
+  youtube = stringConverter(youtube)
+  facebook = stringConverter(facebook)
+  twitter = stringConverter(twitter)
+  instagram = stringConverter(instagram)
 
   // Validate user input values
   !isLength(handle, { min: 2, max: 40 })
     && (errors.handle = 'Handle needs to between 2 - 40 characters')
 
-  isEmpty(`${handle}`)
+  isEmpty(handle)
     && (errors.handle = 'Profile handle is required')
 
-  isEmpty(`${status}`)
+  isEmpty(status)
     && (errors.status = 'Profile status is required')
 
-  isEmpty(`${skills}`)
+  isEmpty(skills)
     && (errors.skills = 'Profile skill is required')
 
-  // Check URLs
-  if(!isEmpty(`${website}`)) {
+  if (!isEmpty(website)) {
     !isURL(website)
       && (errors.website = 'Not a valid URL')
   }
 
-  if(!isEmpty(`${youtube}`)) {
+  if (!isEmpty(youtube)) {
     !isURL(youtube)
       && (errors.youtube = 'Not a valid URL')
   }
 
-  if(!isEmpty(`${facebook}`)) {
+  if (!isEmpty(facebook)) {
     !isURL(facebook)
       && (errors.facebook = 'Not a valid URL')
   }
 
-  if(!isEmpty(`${twitter}`)) {
+  if (!isEmpty(twitter)) {
     !isURL(twitter)
       && (errors.twitter = 'Not a valid URL')
   }
 
-  if(!isEmpty(`${instagram}`)) {
-    !isURL(instagram)
+  if (!isEmpty(instagram)) {
+    !isURL(`${instagram}`)
       && (errors.instagram = 'Not a valid URL')
   }
 
   return {
-    error,
+    errors,
     isValid: JSON.stringify(errors) === '{}'
   }
 }

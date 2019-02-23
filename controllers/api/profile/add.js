@@ -1,5 +1,5 @@
 const profileModel = require('../../../models/profile-model')
-
+const validate = require('../../../validation/profile')
 
 /* User profile add controller flow
   (1) Create a new document via user form submit data
@@ -9,9 +9,13 @@ const profileModel = require('../../../models/profile-model')
         Create new profile document --> Response json of data saved */
 
 module.exports = async (req, res) => {
-  // Get form submit data
+  // Validation First
+  const { errors, isValid } = validate(req.body)
+  if (!isValid)
+    return res.status(400).json(errors)
+
   const {
-    handle, company, website, location,
+    handle, company, website, location, github,
     status, bio, skills, youtube, facebook, twitter, instagram
   } = req.body
 
@@ -30,7 +34,7 @@ module.exports = async (req, res) => {
   if (status) profileFields.status = status
 
   // Skills - separate by comma => Split to array elements
-  if (skills) profileFields.skills = skills.split(',')
+  if (skills) profileFields.skills = skills.split(',').map(e => e.trim())
 
   // Social - Expected an object
   const socials = {}
@@ -45,7 +49,7 @@ module.exports = async (req, res) => {
 
   // Update
   if(profile) {
-    const update = profileModel.findOneAndUpdate(
+    const update = await profileModel.findOneAndUpdate(
       { user: profileFields.user },
       { $set: profileFields },
       { new: true }
@@ -54,9 +58,10 @@ module.exports = async (req, res) => {
   }
 
   // Create
-  const handleFound = profileModel.findOne({ handle: profileFields.handle })
-  if (handleFound) return res.status(400).json('That handle already exists')
-  const newProfile = new Profile(profileFields)
+  const handleFound = await profileModel.findOne({ handle: profileFields.handle })
+  if (handleFound)
+    return res.status(400).json('That handle already exists')
+  const newProfile = new profileModel(profileFields)
   const savedProfile = await newProfile.save()
   res.json(savedProfile)
 }

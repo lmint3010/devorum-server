@@ -16,7 +16,7 @@ const posts = require('./routes/api/posts')
 // Connect to mongoDB
 mongoose.connect(mongoURI, mongooseOption)
 const { connection: db } = mongoose
-db.on('error', () => console.log('Failed to connect with MongoDB'))
+db.on('error', err => console.log(err))
 db.once('open', () => console.log('MongoDB connected successfully!'))
 
 // Body Parser Config
