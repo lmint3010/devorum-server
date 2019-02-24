@@ -5,7 +5,9 @@ const passport = require('passport')
 const controller = {
   addPost: require('../../controllers/api/posts/addPost'),
   getPost: require('../../controllers/api/posts/getPost'),
-  getSinglePost: require('../../controllers/api/posts/getSinglePost')
+  getSinglePost: require('../../controllers/api/posts/getSinglePost'),
+  deletePost: require('../../controllers/api/posts/deletePost'),
+  likeHandle: require('../../controllers/api/posts/likeHandle')
 }
 
 // @route   POST /api/posts
@@ -22,5 +24,15 @@ router.get('/', controller.getPost)
 // @desc    Get single post by Id
 // @access  Public
 router.get('/:postId', controller.getSinglePost)
+
+// @route   DELETE /api/posts/:postId
+// @desc    Delete post by Id
+// @access  Private
+router.delete('/:postId', passport.authenticate('jwt', { session: false }), controller.deletePost)
+
+// @route   POST /api/posts/like/:postId
+// @desc    Handle user like
+// @access  Private
+router.post('/like/:postId', passport.authenticate('jwt', { session: false }), controller.likeHandle)
 
 module.exports = router
