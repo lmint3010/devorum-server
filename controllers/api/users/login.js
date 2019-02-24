@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
   const payload = { _id, name, avatar }
 
   // Get new token & response bearer token
-  const token = await jwt.sign(payload, secretKey, { expiresIn: 3600 })
+  const token = await jwt.sign(payload, secretKey, { expiresIn: '1d' })
   return res.json({
     success: true,
     token: `Bearer ${token}`
