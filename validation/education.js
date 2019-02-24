@@ -23,7 +23,7 @@ module.exports = data => {
   isEmpty(fieldOfStudy)
     && (errors.fieldOfStudy = 'Field of study is required')
 
-    isEmpty(from)
+  isEmpty(from)
     && (errors.from = 'From date is required')
 
   return {

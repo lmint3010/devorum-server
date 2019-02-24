@@ -7,7 +7,9 @@ const controller = {
   getPost: require('../../controllers/api/posts/getPost'),
   getSinglePost: require('../../controllers/api/posts/getSinglePost'),
   deletePost: require('../../controllers/api/posts/deletePost'),
-  likeHandle: require('../../controllers/api/posts/likeHandle')
+  likeHandle: require('../../controllers/api/posts/likeHandle'),
+  addComment: require('../../controllers/api/posts/addComment'),
+  deleteComment: require('../../controllers/api/posts/deleteComment')
 }
 
 // @route   POST /api/posts
@@ -34,5 +36,15 @@ router.delete('/:postId', passport.authenticate('jwt', { session: false }), cont
 // @desc    Handle user like
 // @access  Private
 router.post('/like/:postId', passport.authenticate('jwt', { session: false }), controller.likeHandle)
+
+// @route   POST /api/posts/comment/:postId
+// @desc    Add new comment
+// @access  Private
+router.post('/comment/:postId', passport.authenticate('jwt', { session: false }), controller.addComment)
+
+// @route   DELETE /api/posts/comment/:postId/:commentId
+// @desc    Delete comment
+// @access  Private
+router.delete('/comment/:postId/:commentId', passport.authenticate('jwt', { session: false }), controller.deleteComment)
 
 module.exports = router

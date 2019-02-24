@@ -23,6 +23,8 @@ const postSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'users'
     },
+    name: String,
+    avatar: String,
     text: {
       type: String,
       required: true
