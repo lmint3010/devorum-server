@@ -14,7 +14,8 @@ const profile = require('./routes/api/profile')
 const posts = require('./routes/api/posts')
 
 // Connect to mongoDB
-mongoose.connect(mongoURI, mongooseOption)
+// const url = process.env.NODE_ENV === 'test' ? mongoURI : mongoURI_TEST;
+mongoose.connect(mongoURI, mongooseOption) // replace mongoURI to url
 const { connection: db } = mongoose
 db.on('error', err => console.log(err))
 db.once('open', () => console.log('MongoDB connected successfully!'))
@@ -34,3 +35,5 @@ app.use('/api/profile', profile)
 app.use('/api/posts', posts)
 
 app.listen(port)
+
+module.exports = app;
