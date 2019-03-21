@@ -19,8 +19,8 @@ describe("Users API", () => {
         .post('/api/users/register')
         .send(user)
         .then(res => {
-          // expect(res.name).to.be.a('string');
-        })
-    })
+          expect(res.body.password).to.be.a('string');
+        });
+    });
   });
 });
